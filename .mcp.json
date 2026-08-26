@@ -1,0 +1,12 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "wsl.exe",
+            "args": [
+                "/usr/bin/php8.4",
+                "/data/www/atome-dev/calendrier-api/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
