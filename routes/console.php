@@ -13,7 +13,7 @@ Artisan::command('inspire', function () {
 use Illuminate\Console\Scheduling\Schedule;
 
 app(Schedule::class)->command('holidays:scheduled-sync')
-    /*->weeklyOn(1, '02:00')*/
+    ->weeklyOn(1, '02:00')
     ->timezone('Europe/Paris')
     ->onFailure(function () {
         logger()->error('holidays:scheduled-sync failed');
