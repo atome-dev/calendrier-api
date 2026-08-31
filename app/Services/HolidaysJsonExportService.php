@@ -59,7 +59,11 @@ class HolidaysJsonExportService
         $periods = [];
         $boundaries = [];
 
-        Holiday::query()->get()->each(function (Holiday $h) use (&$periods, &$boundaries): void {
+        $holidays = Holiday::query()->get();
+
+        $maxUpdatedAt = $holidays->max('updated_at');
+
+        $holidays->each(function (Holiday $h) use (&$periods, &$boundaries): void {
 
             if ($this->isExcluded($h->summary)) {
                 return;
@@ -108,7 +112,7 @@ class HolidaysJsonExportService
 
         usort($periods, static fn(array $a, array $b): int => [$a['debut'], $a['fin']] <=> [$b['debut'], $b['fin']]);
 
-        return ['zones' => self::ZONES, 'periodes' => $periods];
+        return ['last_update' => $maxUpdatedAt, 'zones' => self::ZONES, 'periodes' => $periods];
     }
 
     public function exportToFile(string $path): void
